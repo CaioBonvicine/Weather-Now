@@ -1,7 +1,7 @@
 # 🌤️ Weather Now
 
 Weather Now is a modern web application that allows users to search for real-time weather information for any city in the world.  
-The interface dynamically adapts between light and dark themes based on the **local time of the searched city**, providing a more natural user experience.
+The interface dynamically adapts between light and dark themes based on the **local time of the searched city**, providing a more natural user experience. The project was initially started with the command: npx create-next-app@latest
 
 ---
 

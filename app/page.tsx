@@ -17,6 +17,16 @@ export default function Home() {
       return;
     }
 
+    let requestedCountry = "";
+    if (city.includes(',')) {
+      const parts = city.split(',');
+      if (parts.length > 2) {
+        setError("City not found");
+        return;
+      }
+      requestedCountry = parts[1].trim().toUpperCase();
+    }
+
     setLoading(true);
     setData(null);
     setError(null);
@@ -30,6 +40,11 @@ export default function Home() {
       }
       
       const result: WeatherData = await response.json();
+
+      if (requestedCountry && result.country && requestedCountry !== result.country.toUpperCase()) {
+        throw new Error("City not found");
+      }
+
       setData(result);
     } catch (error) {
       console.error("Erro:", error);
@@ -46,7 +61,7 @@ export default function Home() {
   };
 
   return (
-    <main className={`flex flex-col items-center justify-center min-h-screen gap-6 p-6 transition-colors duration-500 ${isDay? "bg-gradient-to-br from-blue-50 to-gray-100 text-gray-800": "bg-gradient-to-br from-gray-900 to-black text-gray-100"}`}>
+    <main className={`flex flex-col items-center justify-center min-h-screen gap-6 p-6 transition-colors duration-500 ${isDay ? "bg-gradient-to-br from-blue-50 to-gray-100 text-gray-800" : "bg-gradient-to-br from-gray-900 to-black text-gray-100"}`}>
       <div className="text-center">
         <h1 className="text-4xl font-bold text-gray-800 mb-2">Weather Now</h1>
         <p className="text-gray-600">Discover the weather in any city in the world</p>
